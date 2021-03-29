@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  envoy:
+    image: envoyproxy/envoy:v1.17.1
+    ports:
+      - "8888:8888"
+      - "9901:9901"
+      - "10000:10000"
+    volumes:
+      - "./envoy-override.yaml:/etc/envoy/envoy-override.yaml"
+    command:
+      - "--log-level debug"
+      - "--config-path /etc/envoy/envoy-override.yaml"
+  echo:
+    image: kennethreitz/httpbin:latest
+    ports:
+      - "8080:80"
+
